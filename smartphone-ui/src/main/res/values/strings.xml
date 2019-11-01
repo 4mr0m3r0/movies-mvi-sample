@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Open Movies Database</string>
+    <string name="make_a_search">Search</string>
+    <string name="search_title">Search</string>
+    <string name="something_went_wrong">Something went wrong. %s</string>
+    <string name="there_are_not_results">There are not results, but we made a cake for you.</string>
+</resources>
