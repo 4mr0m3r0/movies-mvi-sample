@@ -7,6 +7,7 @@ import com.tzion.presentation.movie.action.MoviesAction
 import com.tzion.presentation.movie.action.MoviesAction.FindMoviesByTextAction
 import com.tzion.presentation.movie.intent.MoviesIntent
 import com.tzion.presentation.movie.intent.MoviesIntent.SearchFilterIntent
+import com.tzion.presentation.movie.mapper.PresentationMovieMapper
 import com.tzion.presentation.movie.processor.MoviesActionProcessor
 import com.tzion.presentation.movie.result.MoviesResult
 import com.tzion.presentation.movie.result.MoviesResult.FindMoviesByTextResult
@@ -18,7 +19,8 @@ import javax.inject.Inject
 
 open class FindMoviesViewModel @Inject constructor(
     private val moviesActionProcessor: MoviesActionProcessor,
-    private val mapper: MoviePresentationMapper)
+    private val mapper: PresentationMovieMapper
+)
     : ViewModel(), MviViewModel<MoviesIntent, MoviesUiState> {
 
     private val intentsSubject: PublishSubject<MoviesIntent> = PublishSubject.create()
@@ -37,7 +39,9 @@ open class FindMoviesViewModel @Inject constructor(
             when(result) {
                 is FindMoviesByTextResult -> when(result) {
                     is FindMoviesByTextResult.Success -> {
-                        MoviesUiState.Success(result.movies.map { mapper.mapToPresentation(it) })
+                        MoviesUiState.Success(result.movies.map { movie ->
+                            with(mapper) { movie.fromDomainToPresentation() }
+                        })
                     }
                     is FindMoviesByTextResult.Error -> {
                         if (result.error is NoMoviesResultsException) {

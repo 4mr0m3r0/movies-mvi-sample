@@ -1,6 +1,6 @@
 package com.tzion.domain.movie
 
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.whenever
 import com.tzion.domain.executor.ExecutionThread
 import com.tzion.domain.movie.model.Movie
 import com.tzion.domain.test.MovieDataFactory

@@ -1,28 +1,52 @@
 package com.tzion.remote.test.factory
 
-import com.tzion.data.movie.model.MovieEntity
+import com.tzion.data.movie.model.DataMovie
+import com.tzion.remote.movie.model.Constants
 import com.tzion.remote.movie.model.RemoteMovie
 import com.tzion.remote.movie.model.RemoteSearch
 
 
 object MovieDataFactory {
 
-    fun makeMovieResponse(): RemoteSearch {
-        return RemoteSearch(makeListOfMovies())
-    }
+    fun makeRemoteSearchSuccess() = RemoteSearch(
+        makeListOfMovies(),
+        null,
+        null
+    )
 
-    fun makeListOfMovies(): List<RemoteMovie> {
-        return listOf(makeMovie(), makeMovie())
-    }
+    fun makeRemoteSearchSuccess(movies: List<RemoteMovie>) = RemoteSearch(
+        movies,
+        null,
+        null
+    )
 
-    fun makeMovie(): RemoteMovie {
-        return RemoteMovie(DataFactory.randomUuid(), DataFactory.randomUuid(), DataFactory.randomUuid(),
-            DataFactory.randomUuid(), DataFactory.randomUuid())
-    }
+    fun makeRemoteSearchEmptyList() = RemoteSearch(
+        emptyList(),
+        RandomDataFactory.generateString(),
+        Constants.NO_MOVIES_RESULT_MSG
+    )
 
-    fun makeMovieEntity(): MovieEntity{
-        return MovieEntity(DataFactory.randomUuid(), DataFactory.randomUuid(), DataFactory.randomUuid(),
-            DataFactory.randomUuid(), DataFactory.randomUuid())
-    }
+    fun makeRemoteSearchAnyErrorMsg() = RemoteSearch(
+        emptyList(),
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString()
+    )
+
+    fun makeListOfMovies(): List<RemoteMovie> = listOf(makeRemoteMovie(), makeRemoteMovie())
+
+    fun makeRemoteMovie() = RemoteMovie(
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString())
+
+
+    fun makeDataMovie() = DataMovie(
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString(),
+        RandomDataFactory.generateString())
 
 }

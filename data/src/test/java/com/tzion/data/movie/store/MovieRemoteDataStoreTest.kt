@@ -1,14 +1,12 @@
 package com.tzion.data.movie.store
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import com.segtechcu.data.test.factory.DataFactory
-import com.tzion.data.movie.model.MovieEntity
+import com.tzion.data.movie.model.DataMovie
 import com.tzion.data.movie.repository.MovieRemote
-import com.tzion.data.test.factory.MovieFactory
-import io.reactivex.Observable
+import com.tzion.data.movie.factory.MovieFactory.makeDataMovie
 import io.reactivex.Single
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -22,7 +20,7 @@ class MovieRemoteDataStoreTest {
     @Test
     fun findMoviesByTextCompletes() {
         val param = DataFactory.randomString()
-        stubRemoteFindMoviesByText(Single.just(listOf(MovieFactory.makeMovieEntity())), param)
+        stubRemoteFindMoviesByText(Single.just(listOf(makeDataMovie())), param)
         val testObserver = store.findMoviesByText(param).test()
         testObserver.assertComplete()
     }
@@ -30,13 +28,13 @@ class MovieRemoteDataStoreTest {
     @Test
     fun findMoviesByTextReturnsData() {
         val param = DataFactory.randomString()
-        val data = listOf(MovieFactory.makeMovieEntity())
+        val data = listOf(makeDataMovie())
         stubRemoteFindMoviesByText(Single.just(data), param)
         val testObserver = store.findMoviesByText(param).test()
         testObserver.assertValue(data)
     }
 
-    private fun stubRemoteFindMoviesByText(singleObservable: Single<List<MovieEntity>>, param: String?) {
+    private fun stubRemoteFindMoviesByText(singleObservable: Single<List<DataMovie>>, param: String?) {
         whenever(remote.findMoviesByText(param)).thenReturn(singleObservable)
     }
 

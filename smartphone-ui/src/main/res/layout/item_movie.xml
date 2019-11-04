@@ -9,7 +9,7 @@
             type="android.view.View.OnClickListener" />
         <variable
             name="movie"
-            type="com.tzion.openmoviesdatabase.movie.model.MovieView" />
+            type="com.tzion.openmoviesdatabase.movie.model.UiMovie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

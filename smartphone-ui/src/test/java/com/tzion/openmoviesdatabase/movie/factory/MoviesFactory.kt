@@ -2,16 +2,17 @@ package com.tzion.openmoviesdatabase.movie.factory
 
 import com.tzion.domain.movie.model.Movie
 import com.tzion.openmoviesdatabase.factory.RandomFactory
-import com.tzion.openmoviesdatabase.movie.model.MovieView
+import com.tzion.openmoviesdatabase.movie.model.UiMovie
+import com.tzion.presentation.movie.model.PresentationMovie
 
 object MoviesFactory {
 
-    fun makeMovieList(count: Int): List<Movie> {
-        return (0..count).map { makeMovie() }
+    fun makePresentationMovieList(count: Int): List<PresentationMovie> {
+        return (0..count).map { makePresentationMovie() }
     }
 
-    fun makeMovie(): Movie {
-        return Movie(
+    fun makePresentationMovie(): PresentationMovie {
+        return PresentationMovie(
             RandomFactory.generateString(),
             RandomFactory.generateString(),
             RandomFactory.generateString(),
@@ -20,12 +21,12 @@ object MoviesFactory {
         )
     }
 
-    fun makeMovieViewList(count: Int): List<MovieView> {
-        return (0..count).map { makeMovieView() }
+    fun makeUiMovieList(count: Int): List<UiMovie> {
+        return (0..count).map { makeUiMovie() }
     }
 
-    fun makeMovieView(): MovieView {
-        return MovieView(
+    fun makeUiMovie(): UiMovie {
+        return UiMovie(
             RandomFactory.generateString(),
             RandomFactory.generateString(),
             RandomFactory.generateString(),

@@ -31,12 +31,11 @@ ext {
     //Testing
     jUnitVersion = '4.12'
     assertJVersion = '3.11.1'
-    mockitoKotlinVersion = '1.6.0'
+    mockitoKotlinVersion = '2.0.0'
     mockitoVersion = '2.22.0'
     mockitoAndroidVersion = '2.8.9'
     androidSupportRunnerVersion = '1.0.2'
     androidSupportRulesVersion = '1.0.2'
-    dexmakerMockitoversion = '2.2.0'
     espressoVersion = '3.1.0'
     runnerVersion = '1.1.0'
     rulesVersion = '1.1.0'
@@ -45,6 +44,7 @@ ext {
     googleTruthVersion = '0.42'
     robolectricVersion = '4.2'
     fragmentTestingVersion = '1.1.0-alpha04'
+    mockKVersion = '1.9.3'
 
 
     domainDependencies = [
@@ -56,7 +56,7 @@ ext {
 
     domainTestDependencies = [
             junit:          "junit:junit:${jUnitVersion}",
-            mockitoKotlin:  "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             assertj:        "org.assertj:assertj-core:${assertJVersion}"
     ]
 
@@ -71,7 +71,7 @@ ext {
             junit:          "junit:junit:${jUnitVersion}",
             kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
             assertj:        "org.assertj:assertj-core:${assertJVersion}",
-            mockitoKotlin:  "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}"
+            mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}"
     ]
 
     remoteDependencies = [
@@ -90,11 +90,9 @@ ext {
 
     remoteTestDependencies = [
             junit:          "junit:junit:${jUnitVersion}",
-            kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
             assertj:        "org.assertj:assertj-core:${assertJVersion}",
-            mockitoKotlin:  "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
-            supportRunner:  "com.android.support.test:runner:${androidSupportRunnerVersion}",
-            supportRules:   "com.android.support.test:rules:${androidSupportRulesVersion}"
+            mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
+            mockK:          "io.mockk:mockk:${mockKVersion}"
     ]
 
     cacheDependencies = [
@@ -115,7 +113,7 @@ ext {
             junit:          "junit:junit:${jUnitVersion}",
             kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
             assertj:        "org.assertj:assertj-core:${assertJVersion}",
-            mockitoKotlin:  "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             archTesting:    "androidx.arch.core:core-testing:${archCompVersion}",
             roomTesting:    "androidx.room:room-testing:${roomVersion}",
             supportRunner:  "com.android.support.test:runner:${androidSupportRunnerVersion}",
@@ -140,7 +138,7 @@ ext {
             junit:          "junit:junit:${jUnitVersion}",
             kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
             assertj:        "org.assertj:assertj-core:${assertJVersion}",
-            mockitoKotlin:  "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             archTesting:    "androidx.arch.core:core-testing:${archCompVersion}"
     ]
 
@@ -180,7 +178,7 @@ ext {
     smartphoneUiTestDependencies = [
             junit:              "junit:junit:${jUnitVersion}",
             kotlinJUnit:        "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
-            mockitoKotlin:      "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            mockitoKotlin:      "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             mockitoAndroid:     "org.mockito:mockito-android:${mockitoAndroidVersion}",
             testCore:           "androidx.test:core:${coreVersion}",
             androidRunner:      "androidx.test:runner:${runnerVersion}",
@@ -192,6 +190,16 @@ ext {
             espressoContrib:    "androidx.test.espresso:espresso-contrib:${espressoVersion}",
             robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
             fragmentTesting:    "androidx.fragment:fragment-testing:${fragmentTestingVersion}"
+    ]
+
+    coreTestingDependencies = [
+            kotlin:             "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+    ]
+
+    coreTestingTestDependencies = [
+            junit:          "junit:junit:${jUnitVersion}",
+            assertj:        "org.assertj:assertj-core:${assertJVersion}",
+            mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}"
     ]
 
 }

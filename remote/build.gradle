@@ -17,10 +17,10 @@ dependencies {
     implementation remoteDependencies.retrofitConverter
     implementation remoteDependencies.retrofitAdapter
 
-    implementation remoteTestDependencies.junit
-    implementation remoteTestDependencies.kotlinJUnit
-    implementation remoteTestDependencies.mockitoKotlin
-    implementation remoteTestDependencies.assertj
+    testImplementation remoteTestDependencies.junit
+    testImplementation remoteTestDependencies.mockitoKotlin
+    testImplementation remoteTestDependencies.assertj
+    testImplementation remoteTestDependencies.mockK
 }
 
 sourceCompatibility = "7"

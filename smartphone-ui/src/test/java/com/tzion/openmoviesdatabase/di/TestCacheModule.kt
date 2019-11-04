@@ -1,7 +1,7 @@
 package com.tzion.openmoviesdatabase.di
 
 import android.app.Application
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.mock
 import com.tzion.cache.CacheDatabase
 import com.tzion.data.movie.repository.MovieCache
 import dagger.Module

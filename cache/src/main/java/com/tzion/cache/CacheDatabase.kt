@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import com.tzion.cache.config.ConfigDao
 import com.tzion.cache.config.model.Config
 import com.tzion.cache.movie.CachedMovieDao
-import com.tzion.cache.movie.model.CachedMovie
+import com.tzion.cache.movie.model.CacheMovie
 import javax.inject.Inject
 
-@Database(entities = [CachedMovie::class, Config::class], version = 1)
+@Database(entities = [CacheMovie::class, Config::class], version = 1)
 abstract class CacheDatabase  @Inject constructor(): RoomDatabase() {
 
     abstract fun cachedMovieDao(): CachedMovieDao

@@ -1,11 +1,11 @@
 package com.tzion.presentation.movie.state
 
-import com.tzion.presentation.movie.model.MoviePresentation
+import com.tzion.presentation.movie.model.PresentationMovie
 
 sealed class MoviesUiState(val isLoading: Boolean,
                            val withSearchInstructions: Boolean,
                            val thereAreNotMoviesMatches: Boolean,
-                           val movies: List<MoviePresentation>,
+                           val movies: List<PresentationMovie>,
                            val withError: Boolean,
                            val errorMessage: String) {
 
@@ -36,7 +36,7 @@ sealed class MoviesUiState(val isLoading: Boolean,
         errorMessage = ""
     )
 
-    data class Success(private val presentationMovies: List<MoviePresentation>): MoviesUiState(
+    data class Success(private val presentationMovies: List<PresentationMovie>): MoviesUiState(
         isLoading = false,
         withSearchInstructions = false,
         thereAreNotMoviesMatches = false,

@@ -1,16 +1,15 @@
 package com.tzion.data.movie.repository
 
-import com.tzion.data.movie.model.MovieEntity
+import com.tzion.data.movie.model.DataMovie
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Single
 
 interface MovieCache {
 
     fun clearMovies(): Completable
 
-    fun saveMovies(clients: List<MovieEntity>): Completable
+    fun saveMovies(clients: List<DataMovie>): Completable
 
-    fun findMoviesByText(text: String?): Single<List<MovieEntity>>
+    fun findMoviesByText(text: String?): Single<List<DataMovie>>
 
 }
