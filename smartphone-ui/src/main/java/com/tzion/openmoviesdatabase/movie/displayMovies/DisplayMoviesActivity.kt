@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -16,15 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tzion.openmoviesdatabase.MviUi
 import com.tzion.openmoviesdatabase.R
 import com.tzion.openmoviesdatabase.databinding.ActivityDisplayMoviesBinding
-import com.tzion.openmoviesdatabase.di.ViewModelFactory
-import com.tzion.openmoviesdatabase.movie.MovieViewMapper
-import com.tzion.openmoviesdatabase.movie.model.MovieView
-import com.tzion.presentation.Resource
-import com.tzion.presentation.ResourceState
+import com.tzion.openmoviesdatabase.movie.mapper.UiMovieMapper
 import com.tzion.presentation.movie.FindMoviesViewModel
 import com.tzion.presentation.movie.intent.MoviesIntent
 import com.tzion.presentation.movie.intent.MoviesIntent.*
-import com.tzion.presentation.movie.model.MoviePresentation
+import com.tzion.presentation.movie.model.PresentationMovie
 import com.tzion.presentation.movie.state.MoviesUiState
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -45,17 +40,25 @@ class DisplayMoviesActivity : AppCompatActivity(), MviUi<MoviesIntent, MoviesUiS
     }
     private val disposable = CompositeDisposable()
     @Inject lateinit var displayMoviesAdapter: DisplayMoviesAdapter
-    @Inject lateinit var mapper: MovieViewMapper
+    @Inject lateinit var mapper: UiMovieMapper
     private lateinit var binding: ActivityDisplayMoviesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_display_movies)
-        AndroidInjection.inject(this)
-        setUpView()
+        setupBinding()
+        setupInjection()
+        setUpUi()
     }
 
-    private fun setUpView() {
+    private fun setupBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_display_movies)
+    }
+
+    private fun setupInjection() {
+        AndroidInjection.inject(this)
+    }
+
+    private fun setUpUi() {
         attachViewModel()
         setUpRecyclerView()
     }
@@ -139,12 +142,14 @@ class DisplayMoviesActivity : AppCompatActivity(), MviUi<MoviesIntent, MoviesUiS
         }
     }
 
-    private fun setScreenForDisplayMovies(movies: List<MoviePresentation>) {
+    private fun setScreenForDisplayMovies(movies: List<PresentationMovie>) {
         binding.apply {
             if (movies.isEmpty()) {
                 rvDisplayMovies.visibility = View.GONE
             } else {
-                displayMoviesAdapter.setData(movies.map { mapper.mapToView(it) })
+                displayMoviesAdapter.setData(movies.map { presentationMovie ->
+                    with(mapper) { presentationMovie.fromPresentationToUi() }
+                })
                 rvDisplayMovies.visibility = View.VISIBLE
             }
         }

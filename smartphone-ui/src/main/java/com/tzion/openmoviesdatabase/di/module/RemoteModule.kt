@@ -1,7 +1,7 @@
 package com.tzion.openmoviesdatabase.di.module
 
 import com.tzion.data.movie.repository.MovieRemote
-import com.tzion.openmoviesdatabase.helper.EndpointConstantsHelper
+import com.tzion.remote.EndpointConstants
 import com.tzion.remote.RemoteApiRestFactory
 import com.tzion.remote.movie.MovieRemoteImpl
 import com.tzion.remote.movie.MovieRestApi
@@ -17,7 +17,7 @@ abstract class RemoteModule {
         @JvmStatic
         fun provideMovieRestApi(): MovieRestApi {
             return RemoteApiRestFactory<MovieRestApi>().makeRemoteRestApi(
-                    true, MovieRestApi::class.java, EndpointConstantsHelper.REST_API_SERVER
+                    true, MovieRestApi::class.java, EndpointConstants.REST_API_SERVER
             )
         }
     }

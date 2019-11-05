@@ -1,6 +1,6 @@
 package com.tzion.openmoviesdatabase.di
 
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.mock
 import com.tzion.data.movie.repository.MovieRemote
 import com.tzion.remote.movie.MovieRestApi
 import dagger.Module

@@ -1,6 +1,7 @@
 package com.tzion.data.movie
 
 import com.tzion.data.exception.DataNoMoviesResultsException
+import com.tzion.data.movie.mapper.DataMovieMapper
 import com.tzion.data.movie.repository.MovieCache
 import com.tzion.data.movie.store.MovieDataStoreFactory
 import com.tzion.domain.exception.NoMoviesResultsException
@@ -10,7 +11,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class MovieDataRepository @Inject constructor(
-    private val mapper: MovieMapper,
+    private val mapper: DataMovieMapper,
     private val cache: MovieCache,
     private val factory: MovieDataStoreFactory)
     : MovieRepository {
@@ -19,7 +20,9 @@ class MovieDataRepository @Inject constructor(
         .getRemoteDataStore()
         .findMoviesByText(text)
         .map { movies ->
-            movies.map { mapper.mapFromEntity(it) }
+            movies.map { dataMovie ->
+                with(mapper) { dataMovie.fromDataToDomain() }
+            }
         }
         .onErrorResumeNext { error ->
             if (error is DataNoMoviesResultsException) {

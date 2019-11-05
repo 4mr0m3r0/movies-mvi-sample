@@ -1,24 +1,17 @@
 package com.tzion.openmoviesdatabase.movie.displayMovies
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.tzion.openmoviesdatabase.R
 import com.tzion.openmoviesdatabase.databinding.ItemMovieBinding
-import com.tzion.openmoviesdatabase.movie.model.MovieView
-import timber.log.Timber
+import com.tzion.openmoviesdatabase.movie.model.UiMovie
 import javax.inject.Inject
 
 class DisplayMoviesAdapter @Inject constructor(): RecyclerView.Adapter<DisplayMoviesAdapter.ViewHolder>() {
 
-    var movies: List<MovieView> = mutableListOf()
+    var movies: List<UiMovie> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -45,14 +38,14 @@ class DisplayMoviesAdapter @Inject constructor(): RecyclerView.Adapter<DisplayMo
         }
     }
 
-    fun setData(movies: List<MovieView>) {
+    fun setData(movies: List<UiMovie>) {
         this.movies = movies
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(listener: View.OnClickListener, item: MovieView) {
+        fun bind(listener: View.OnClickListener, item: UiMovie) {
             binding.apply {
                 clickListener = listener
                 movie = item
