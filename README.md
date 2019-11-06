@@ -18,13 +18,13 @@ Description
 A browser of movies
 
 ### Ui States
-<img src="screenshots/default.png" width="300" />
-<img src="screenshots/loading.png" width="300" />
-<img src="screenshots/multiple-results.png" width="300" />
-<img src="screenshots/single-result.png" width="300" />
-<img src="screenshots/empty.png" width="300" />
-<img src="screenshots/error-too-many-results.png" width="300" />
-<img src="screenshots/error-no-network.png" width="300" />
+![Default](screenshots/default.png "Default")
+![Loading](screenshots/loading.png "Loading")
+![Multiple Results](screenshots/multiple-results.png "Multiple Results")
+![Single Result](screenshots/single-result.png "Single Result")
+![Empty](screenshots/empty.png "Empty")
+![To many results](screenshots/error-too-many-results.png "Too many results")
+![No network](screenshots/error-no-network.png "No network")
 
 ### Architecture
 This is an approach of Clean Architecture by layer <br/>
