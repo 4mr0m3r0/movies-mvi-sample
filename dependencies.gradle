@@ -27,6 +27,7 @@ ext {
     androidxAnnotationVersion = '1.0.0'
     appCompatVersion = '1.0.0'
     glideVersion = '4.9.0'
+    lifecycleVersion = '2.1.0'
 
     //Testing
     jUnitVersion = '4.12'
@@ -136,10 +137,10 @@ ext {
 
     presentationTestDependencies = [
             junit:          "junit:junit:${jUnitVersion}",
-            kotlinJUnit:    "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
             assertj:        "org.assertj:assertj-core:${assertJVersion}",
             mockitoKotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
-            archTesting:    "androidx.arch.core:core-testing:${archCompVersion}"
+            archTesting:    "androidx.arch.core:core-testing:${archCompVersion}",
+            mockK:          "io.mockk:mockk:${mockKVersion}"
     ]
 
     smartphoneUiDependencies = [
@@ -167,9 +168,9 @@ ext {
             appCompat:                      "androidx.appcompat:appcompat:${appCompatVersion}",
             androidxRecyclerView:           "androidx.recyclerview:recyclerview:${appCompatVersion}",
             material:                       "com.google.android.material:material:1.0.0",
-            androidxLifecycleRuntime:       "androidx.lifecycle:lifecycle-runtime:2.0.0",
-            androidxLifecycleExtensions:    "androidx.lifecycle:lifecycle-extensions:2.0.0",
-            androidxLifecycleCompiler:      "androidx.lifecycle:lifecycle-compiler:2.0.0",
+            androidxLifecycleRuntime:       "androidx.lifecycle:lifecycle-runtime:${lifecycleVersion}",
+            androidxLifecycleExtensions:    "androidx.lifecycle:lifecycle-extensions:${lifecycleVersion}",
+            androidxLifecycleCompiler:      "androidx.lifecycle:lifecycle-compiler:${lifecycleVersion}",
             androidxLifecycleRoom:          "androidx.room:room-rxjava2:2.1.0-alpha01",
             glide:                          "com.github.bumptech.glide:glide:${glideVersion}",
             glideCompiler:                  "com.github.bumptech.glide:compiler:${glideVersion}"
@@ -177,7 +178,6 @@ ext {
 
     smartphoneUiTestDependencies = [
             junit:              "junit:junit:${jUnitVersion}",
-            kotlinJUnit:        "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
             mockitoKotlin:      "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
             mockitoAndroid:     "org.mockito:mockito-android:${mockitoAndroidVersion}",
             testCore:           "androidx.test:core:${coreVersion}",
@@ -188,8 +188,11 @@ ext {
             googleTruth:        "com.google.truth:truth:${googleTruthVersion}",
             espressoCore:       "androidx.test.espresso:espresso-core:${espressoVersion}",
             espressoContrib:    "androidx.test.espresso:espresso-contrib:${espressoVersion}",
+            espressoIntents:    "androidx.test.espresso:espresso-intents:${espressoVersion}",
+            espressoAccessi:    "androidx.test.espresso:espresso-accessibility:${espressoVersion}",
             robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
-            fragmentTesting:    "androidx.fragment:fragment-testing:${fragmentTestingVersion}"
+            fragmentTesting:    "androidx.fragment:fragment-testing:${fragmentTestingVersion}",
+            liveDataTest:       "androidx.arch.core:core-testing:${lifecycleVersion}"
     ]
 
     coreTestingDependencies = [

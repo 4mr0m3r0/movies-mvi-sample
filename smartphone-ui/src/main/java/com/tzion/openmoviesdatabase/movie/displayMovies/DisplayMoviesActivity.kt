@@ -24,6 +24,7 @@ import com.tzion.presentation.movie.state.MoviesUiState
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Inject
@@ -65,7 +66,7 @@ class DisplayMoviesActivity : AppCompatActivity(), MviUi<MoviesIntent, MoviesUiS
 
     private fun attachViewModel() {
         findMoviesViewModel?.apply {
-            disposable.add(states().subscribe { render(it) })
+            disposable += states().subscribe { render(it) }
             processIntent(intents())
         }
     }
@@ -91,8 +92,7 @@ class DisplayMoviesActivity : AppCompatActivity(), MviUi<MoviesIntent, MoviesUiS
         setScreenForLoading(state.isLoading)
         setScreenForInstructions(state.withSearchInstructions)
         setScreenForError(state.withError, state.errorMessage)
-        setScreenForEmptyListOfMovies(state.thereAreNotMoviesMatches)
-        setScreenForDisplayMovies(state.movies)
+        setScreenForDisplayMovies(state.movies, state.thereAreNotMoviesMatches)
     }
 
     private fun setScreenForLoading(isLoading: Boolean) {
@@ -130,29 +130,26 @@ class DisplayMoviesActivity : AppCompatActivity(), MviUi<MoviesIntent, MoviesUiS
         }
     }
 
-    private fun setScreenForEmptyListOfMovies(thereAreNotMoviesMatches: Boolean) {
+    private fun setScreenForDisplayMovies(movies: List<PresentationMovie>,
+                                          thereAreNotMoviesMatches: Boolean) {
         binding.apply {
             if (thereAreNotMoviesMatches) {
                 ivEmptyList.visibility = View.VISIBLE
                 tvEmptyList.visibility = View.VISIBLE
+                rvDisplayMovies.visibility = View.GONE
             } else {
                 ivEmptyList.visibility = View.GONE
                 tvEmptyList.visibility = View.GONE
+                setAdapterData(movies)
+                rvDisplayMovies.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun setScreenForDisplayMovies(movies: List<PresentationMovie>) {
-        binding.apply {
-            if (movies.isEmpty()) {
-                rvDisplayMovies.visibility = View.GONE
-            } else {
-                displayMoviesAdapter.setData(movies.map { presentationMovie ->
-                    with(mapper) { presentationMovie.fromPresentationToUi() }
-                })
-                rvDisplayMovies.visibility = View.VISIBLE
-            }
-        }
+    private fun setAdapterData(movies: List<PresentationMovie>) {
+        displayMoviesAdapter.setData(movies.map { presentationMovie ->
+            with(mapper) { presentationMovie.fromPresentationToUi() }
+        })
     }
 
     override fun intents(): Observable<MoviesIntent> = searchFilterIntent()

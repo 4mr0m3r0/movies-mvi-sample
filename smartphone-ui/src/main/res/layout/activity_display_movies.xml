@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         tools:context=".movie.displayMovies.DisplayMoviesActivity">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/aciv_search_display_movies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

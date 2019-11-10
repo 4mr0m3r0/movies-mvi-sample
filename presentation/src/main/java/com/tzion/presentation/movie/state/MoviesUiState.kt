@@ -8,6 +8,9 @@ sealed class MoviesUiState(val isLoading: Boolean,
                            val movies: List<PresentationMovie>,
                            val withError: Boolean,
                            val errorMessage: String) {
+    companion object {
+        const val DEFAULT_ERROR_MSG = ""
+    }
 
     object Default: MoviesUiState(
         isLoading = false,
@@ -15,7 +18,7 @@ sealed class MoviesUiState(val isLoading: Boolean,
         thereAreNotMoviesMatches = false,
         movies = emptyList(),
         withError = false,
-        errorMessage = ""
+        errorMessage = DEFAULT_ERROR_MSG
     )
 
     object Loading: MoviesUiState(
@@ -24,7 +27,7 @@ sealed class MoviesUiState(val isLoading: Boolean,
         thereAreNotMoviesMatches = false,
         movies = emptyList(),
         withError = false,
-        errorMessage = ""
+        errorMessage = DEFAULT_ERROR_MSG
     )
 
     object EmptyList: MoviesUiState(
@@ -33,7 +36,7 @@ sealed class MoviesUiState(val isLoading: Boolean,
         thereAreNotMoviesMatches = true,
         movies = emptyList(),
         withError = false,
-        errorMessage = ""
+        errorMessage = DEFAULT_ERROR_MSG
     )
 
     data class Success(private val presentationMovies: List<PresentationMovie>): MoviesUiState(
@@ -42,7 +45,7 @@ sealed class MoviesUiState(val isLoading: Boolean,
         thereAreNotMoviesMatches = false,
         movies = presentationMovies,
         withError = false,
-        errorMessage = ""
+        errorMessage = DEFAULT_ERROR_MSG
     )
 
     data class Error(private val error: String): MoviesUiState(

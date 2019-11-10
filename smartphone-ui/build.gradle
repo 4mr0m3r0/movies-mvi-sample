@@ -51,7 +51,11 @@ android {
         enabled = true
     }
 
-    testOptions.unitTests.includeAndroidResources = true
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 kapt {
@@ -96,7 +100,6 @@ dependencies {
 
     //Test Dependencies
     testImplementation smartphoneUiTestDependencies.junit
-    testImplementation smartphoneUiTestDependencies.kotlinJUnit
     testImplementation smartphoneUiTestDependencies.testCore
     testImplementation smartphoneUiTestDependencies.androidRunner
     testImplementation smartphoneUiTestDependencies.androidRules
@@ -105,10 +108,13 @@ dependencies {
     testImplementation smartphoneUiTestDependencies.googleTruth
     testImplementation smartphoneUiTestDependencies.espressoCore
     testImplementation smartphoneUiTestDependencies.espressoContrib
+    testImplementation smartphoneUiTestDependencies.espressoIntents
+    testImplementation smartphoneUiTestDependencies.espressoAccessi
     testImplementation smartphoneUiTestDependencies.robolectric
     testImplementation smartphoneUiTestDependencies.fragmentTesting
     testImplementation smartphoneUiTestDependencies.mockitoKotlin
     testImplementation smartphoneUiTestDependencies.mockitoAndroid
+    testImplementation smartphoneUiTestDependencies.liveDataTest
 
 
     kaptTest smartphoneUiDependencies.daggerCompiler

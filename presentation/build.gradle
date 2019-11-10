@@ -80,4 +80,5 @@ dependencies {
     testImplementation presentationTestDependencies.mockitoKotlin
     testImplementation presentationTestDependencies.assertj
     testImplementation presentationTestDependencies.archTesting
+    testImplementation presentationTestDependencies.mockK
 }
