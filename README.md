@@ -18,11 +18,16 @@ Description
 A browser of movies
 
 ### Ui States
+#### Default
 ![Default](screenshots/default.png "Default")
+#### Loading
 ![Loading](screenshots/loading.png "Loading")
+#### Success
 ![Multiple Results](screenshots/multiple-results.png "Multiple Results")
 ![Single Result](screenshots/single-result.png "Single Result")
+#### Empty List
 ![Empty](screenshots/empty.png "Empty")
+#### Error
 ![To many results](screenshots/error-too-many-results.png "Too many results")
 ![No network](screenshots/error-no-network.png "No network")
 
