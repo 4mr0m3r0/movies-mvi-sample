@@ -6,10 +6,10 @@ import com.tzion.presentation.factory.DataFactory
 
 object MovieFactory {
 
-    fun makeMovieViewList(count: Int): List<PresentationMovie> {
+    fun makePresentationMovieList(count: Int): List<PresentationMovie> {
         val movies = mutableListOf<PresentationMovie>()
         repeat(count) {
-            movies.add(makeMovieView())
+            movies.add(makePresentationMovie())
         }
         return movies
     }
@@ -22,7 +22,7 @@ object MovieFactory {
         return movies
     }
 
-    fun makeMovieView(): PresentationMovie {
+    fun makePresentationMovie(): PresentationMovie {
         return PresentationMovie(
             DataFactory.randomString(),
             DataFactory.randomString(),
