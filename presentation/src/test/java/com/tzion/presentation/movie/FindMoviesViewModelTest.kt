@@ -5,12 +5,13 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.tzion.domain.exception.NoMoviesResultsException
 import com.tzion.domain.movie.FindMoviesUseCase
+import com.tzion.domain.movie.MovieRepository
 import com.tzion.domain.movie.model.Movie
+import com.tzion.presentation.FakeUiThread
 import com.tzion.presentation.factory.DataFactory
 import com.tzion.presentation.movie.factory.MovieFactory.makeDomainMovie
 import com.tzion.presentation.movie.factory.MovieFactory.makePresentationMovie
-import com.tzion.presentation.movie.intent.MoviesIntent
-import com.tzion.presentation.movie.intent.MoviesIntent.*
+import com.tzion.presentation.movie.intent.MoviesIntent.SearchFilterIntent
 import com.tzion.presentation.movie.mapper.PresentationMovieMapper
 import com.tzion.presentation.movie.model.PresentationMovie
 import com.tzion.presentation.movie.processor.MoviesActionProcessor
@@ -23,8 +24,9 @@ import org.junit.Test
 
 class FindMoviesViewModelTest {
 
-    private val useCase = mock<FindMoviesUseCase>()
-    private val processor = MoviesActionProcessor(useCase)
+    private val repository = mock<MovieRepository>()
+    private val useCase = FindMoviesUseCase(repository)
+    private val processor = MoviesActionProcessor(useCase, FakeUiThread())
     private val mapper = mockk<PresentationMovieMapper>()
     private val viewModel = FindMoviesViewModel(processor, mapper)
     companion object {
@@ -47,7 +49,7 @@ class FindMoviesViewModelTest {
         val domainMovie = makeDomainMovie()
         val presentationMovie = makePresentationMovie()
         stubPresentationMovieMapper(domainMovie, presentationMovie)
-        stubUseCase(Single.just(listOf(domainMovie)))
+        stubRepository(Single.just(listOf(domainMovie)))
 
         val testObserver = viewModel.states().test()
         viewModel.processIntent(Observable.just(SearchFilterIntent(DataFactory.randomString())))
@@ -62,7 +64,7 @@ class FindMoviesViewModelTest {
         val domainMovie = makeDomainMovie()
         val presentationMovie = makePresentationMovie()
         stubPresentationMovieMapper(domainMovie, presentationMovie)
-        stubUseCase(Single.just(listOf(domainMovie)))
+        stubRepository(Single.just(listOf(domainMovie)))
 
         val testObserver = viewModel.states().test()
         viewModel.processIntent(Observable.just(SearchFilterIntent(DataFactory.randomString())))
@@ -74,7 +76,7 @@ class FindMoviesViewModelTest {
 
     @Test
     fun `given an empty list of movies, when process SearchFilterIntent, then state EmptyList`() {
-        stubUseCase(Single.just(emptyList()))
+        stubRepository(Single.just(emptyList()))
 
         val testObserver = viewModel.states().test()
         viewModel.processIntent(Observable.just(SearchFilterIntent(DataFactory.randomString())))
@@ -86,7 +88,7 @@ class FindMoviesViewModelTest {
 
     @Test
     fun `given NoMoviesResultsException, when process SearchFilterIntent, then state EmptyList`() {
-        stubUseCase(Single.error(NoMoviesResultsException(DataFactory.randomString())))
+        stubRepository(Single.error(NoMoviesResultsException(DataFactory.randomString())))
 
         val testObserver = viewModel.states().test()
         viewModel.processIntent(Observable.just(SearchFilterIntent(DataFactory.randomString())))
@@ -98,7 +100,7 @@ class FindMoviesViewModelTest {
 
     @Test
     fun `given AnyException, when process SearchFilterIntent, then state EmptyList`() {
-        stubUseCase(Single.error(Exception(DataFactory.randomString())))
+        stubRepository(Single.error(Exception(DataFactory.randomString())))
 
         val testObserver = viewModel.states().test()
         viewModel.processIntent(Observable.just(SearchFilterIntent(DataFactory.randomString())))
@@ -115,8 +117,8 @@ class FindMoviesViewModelTest {
         }
     }
 
-    private fun stubUseCase(single: Single<List<Movie>>) {
-        whenever(useCase.execute(any())).thenReturn(single)
+    private fun stubRepository(single: Single<List<Movie>>) {
+        whenever(repository.findMoviesByText(any())).thenReturn(single)
     }
 
 }

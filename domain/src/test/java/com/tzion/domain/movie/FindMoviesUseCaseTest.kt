@@ -22,14 +22,14 @@ class FindMoviesUseCaseTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        findMoviesUseCase = FindMoviesUseCase(movieRepository, executionThread)
+        findMoviesUseCase = FindMoviesUseCase(movieRepository)
     }
 
     @Test
     fun findMoviesUseCaseComplete() {
         val param = MovieDataFactory.randomUuid()
         stubFindMoviesUseCase(Single.just(MovieDataFactory.makeMovieList(2)), param)
-        val testObserver = findMoviesUseCase.buildUseCaseObservable(FindMoviesUseCase.Params(param)).test()
+        val testObserver = findMoviesUseCase.execute(FindMoviesUseCase.Params(param)).test()
         testObserver.assertComplete()
     }
 
@@ -38,7 +38,7 @@ class FindMoviesUseCaseTest {
         val param = MovieDataFactory.randomUuid()
         val movies = MovieDataFactory.makeMovieList(2)
         stubFindMoviesUseCase(Single.just(movies), param)
-        val testObserver = findMoviesUseCase.buildUseCaseObservable(FindMoviesUseCase.Params(param)).test()
+        val testObserver = findMoviesUseCase.execute(FindMoviesUseCase.Params(param)).test()
         testObserver.assertValue(movies)
     }
 
