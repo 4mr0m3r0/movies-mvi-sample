@@ -2,9 +2,9 @@ MVI Sample
 ===========
 Android MVI sample which is based on RxJava and is composed by layers as modules.
 
-IMPORTANT: If you want to see MVI sample with Kotlin Flow and by features, 
+**IMPORTANT**: If you want to see MVI sample with Kotlin Flow and by features, 
 please go to this repo: https://github.com/4mr0m3r0/movies-modularization-sample
-which uses **Movies API** as well.  
+which uses *Movies API* as well.  
 
 First of all
 ------------
